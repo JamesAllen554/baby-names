@@ -1,0 +1,39 @@
+---
+title: "Baby Names Analysis"
+author: "James Allen"
+format: html
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Popularity of the Name James Over Time
+
+```{r}
+#| label: setup
+library(tidyverse)
+```
+
+```{r}
+#| label: plot-james
+# Read baby names data
+baby_names <- read_csv("ssa-baby-names.csv", show_col_types = FALSE)
+
+# Filter for the name James
+james_data <- baby_names |>
+  filter(name == "James")
+
+# Plot trend over time
+james_data |>
+  ggplot(aes(x = year, y = count, color = sex)) +
+  geom_line(linewidth = 1) +
+  scale_y_continuous(labels = scales::comma_format()) +
+  labs(
+    title = "Popularity of the Name 'James' Over Time",
+    x = "Year",
+    y = "Number of Babies",
+    color = "Sex"
+  ) +
+  theme_minimal()
+```
